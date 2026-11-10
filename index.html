@@ -3,21 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nauval Dev | Premium Web Development</title>
-    <meta name="description" content="Membangun website profesional yang bekerja untuk bisnis Anda.">
-    
+    <title>Jasa Pembuatan Website untuk Bisnis &amp; UMKM | Nauval Dev</title>
+    <meta name="description" content="Nauval Dev membantu bisnis dan UMKM memiliki website profesional, cepat, dan responsif. Layanan terima beres, konsultasi tanpa biaya.">
+    <meta name="theme-color" content="#0B1F3A">
+
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="id_ID">
+    <meta property="og:site_name" content="Nauval Dev">
+    <meta property="og:title" content="Jasa Pembuatan Website untuk Bisnis &amp; UMKM | Nauval Dev">
+    <meta property="og:description" content="Website profesional, cepat, dan responsif. Layanan terima beres, konsultasi tanpa biaya.">
+
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
     <!-- Fonts: Playfair Display (Serif) & Inter (Sans) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+
     <!-- Icons -->
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Tailwind Config: Warna Brand & Kontras Teks -->
     <script>
         tailwind.config = {
             theme: {
@@ -25,10 +33,13 @@
                     colors: {
                         brand: {
                             navy: '#0B1F3A',
-                            gold: '#C9A227',
+                            'navy-soft': '#16335C', // Hover tombol navy
+                            gold: '#C9A227',        // Aksen & teks di atas latar navy
+                            'gold-dark': '#8A6D12', // Teks emas di atas latar terang (kontras AA)
                             white: '#FFFFFF',
-                            gray: '#AAB7C4', // Untuk border dan elemen dekoratif tipis
-                            'gray-dark': '#475569', // Warna abu-abu gelap untuk teks agar mudah dibaca
+                            cream: '#FAF8F3',       // Latar selang-seling antar section
+                            gray: '#AAB7C4',
+                            'gray-dark': '#475569',
                         }
                     },
                     fontFamily: {
@@ -41,253 +52,460 @@
     </script>
 
     <style>
-        /* Styling tambahan untuk garis super tipis gaya editorial */
-        .hairline-b { border-bottom: 0.5px solid rgba(170, 183, 196, 0.4); }
-        .hairline-t { border-top: 0.5px solid rgba(170, 183, 196, 0.4); }
-        
-        ::selection {
-            background-color: #0B1F3A;
-            color: #FFFFFF;
+        /* Garis tipis gaya editorial */
+        .hairline-b { border-bottom: 1px solid rgba(170, 183, 196, 0.4); }
+        .hairline-t { border-top: 1px solid rgba(170, 183, 196, 0.4); }
+
+        /* Jaga agar judul section tidak tertutup header saat dituju dari menu */
+        html { scroll-padding-top: 7rem; }
+
+        ::selection { background-color: #0B1F3A; color: #FFFFFF; }
+
+        :focus-visible { outline: 2px solid #C9A227; outline-offset: 3px; }
+
+        /* Animasi muncul saat di-scroll. Hanya aktif jika JS berjalan. */
+        .js .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
+        .js .reveal.is-visible { opacity: 1; transform: none; }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto !important; }
+            .js .reveal { opacity: 1; transform: none; transition: none; }
+            * { transition-duration: 0s !important; }
         }
-        
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #FFFFFF; }
-        ::-webkit-scrollbar-thumb { background: #0B1F3A; }
     </style>
+    <script>document.documentElement.classList.add('js');</script>
 </head>
-<body class="bg-brand-white text-brand-navy font-sans antialiased overflow-x-hidden selection:bg-brand-navy selection:text-brand-white">
+<body class="bg-brand-white text-brand-navy font-sans antialiased overflow-x-hidden">
+
+    <a href="#utama" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:bg-brand-navy focus:text-brand-white focus:px-4 focus:py-2">Langsung ke konten</a>
 
     <!-- Header / Navbar -->
-    <header class="fixed w-full top-0 z-50 bg-brand-white/95 backdrop-blur-md hairline-b transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-6 sm:px-12 flex items-center justify-between h-24">
-            
-            <!-- Logo (Besar & Proporsional dengan Fallback Teks) -->
-            <a href="#" class="flex items-center group py-2">
-                <img src="1.png" alt="Nauval Dev Logo" class="h-14 sm:h-16 md:h-20 w-auto object-contain transition-transform duration-500 group-hover:scale-[1.02]" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                <span class="hidden font-serif font-bold text-2xl text-brand-navy tracking-tight">Nauval Dev.</span>
+    <header class="fixed w-full top-0 z-50 bg-brand-white/95 backdrop-blur-md hairline-b">
+        <div class="px-6 sm:px-12"><div class="max-w-7xl mx-auto flex items-center justify-between h-24">
+
+            <a href="#" class="flex items-center py-2" aria-label="Nauval Dev, ke atas halaman">
+                <img src="assets/logo.webp" alt="Nauval Dev" width="441" height="128" class="h-12 sm:h-14 lg:h-16 w-auto" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <span class="hidden font-serif font-bold text-2xl tracking-tight">Nauval Dev.</span>
             </a>
 
             <!-- Desktop Nav -->
-            <nav class="hidden md:flex items-center gap-10">
-                <a href="#pendekatan" class="text-sm font-medium tracking-wide hover:text-brand-gold transition duration-300">Pendekatan</a>
-                <a href="#layanan" class="text-sm font-medium tracking-wide hover:text-brand-gold transition duration-300">Layanan</a>
-                <a href="#karya" class="text-sm font-medium tracking-wide hover:text-brand-gold transition duration-300">Karya Terpilih</a>
-                <a href="#kontak" class="text-sm font-medium tracking-wide text-brand-white bg-brand-navy px-6 py-3 hover:bg-brand-gold transition duration-300">Mulai Diskusi</a>
+            <nav class="hidden md:flex items-center gap-8 lg:gap-10" aria-label="Navigasi utama">
+                <a href="#pendekatan" class="text-sm font-medium tracking-wide hover:text-brand-gold-dark transition duration-300">Pendekatan</a>
+                <a href="#layanan" class="text-sm font-medium tracking-wide hover:text-brand-gold-dark transition duration-300">Layanan</a>
+                <a href="#karya" class="text-sm font-medium tracking-wide hover:text-brand-gold-dark transition duration-300">Karya Terpilih</a>
+                <a href="#alur" class="text-sm font-medium tracking-wide hover:text-brand-gold-dark transition duration-300">Alur Kerja</a>
+                <a href="#kontak" class="text-sm font-semibold tracking-wide text-brand-white bg-brand-navy px-6 py-3 hover:bg-brand-navy-soft transition duration-300">Mulai Diskusi</a>
             </nav>
 
             <!-- Mobile Menu Button -->
-            <button class="md:hidden text-3xl text-brand-navy focus:outline-none" onclick="document.getElementById('mobileMenu').classList.toggle('hidden')">
-                <i class='bx bx-menu'></i>
+            <button id="menuButton" type="button" class="md:hidden text-3xl w-11 h-11 flex items-center justify-center" aria-label="Buka menu" aria-expanded="false" aria-controls="mobileMenu">
+                <i class="bx bx-menu" aria-hidden="true"></i>
             </button>
-        </div>
+        </div></div>
 
-        <!-- Mobile Menu (Hidden by default) -->
-        <div id="mobileMenu" class="hidden md:hidden bg-brand-white hairline-b flex flex-col p-6 space-y-6">
-            <a href="#pendekatan" class="text-brand-navy font-bold uppercase tracking-widest text-sm">Pendekatan</a>
-            <a href="#layanan" class="text-brand-navy font-bold uppercase tracking-widest text-sm">Layanan</a>
-            <a href="#karya" class="text-brand-navy font-bold uppercase tracking-widest text-sm">Karya Terpilih</a>
-            <a href="#kontak" class="text-brand-navy font-bold uppercase tracking-widest text-sm text-brand-gold">Mulai Diskusi</a>
-        </div>
+        <!-- Mobile Menu -->
+        <nav id="mobileMenu" class="hidden md:hidden bg-brand-white hairline-t px-6 py-2" aria-label="Navigasi mobile">
+            <a href="#pendekatan" class="block py-4 hairline-b font-semibold">Pendekatan</a>
+            <a href="#layanan" class="block py-4 hairline-b font-semibold">Layanan</a>
+            <a href="#karya" class="block py-4 hairline-b font-semibold">Karya Terpilih</a>
+            <a href="#alur" class="block py-4 hairline-b font-semibold">Alur Kerja</a>
+            <a href="#kontak" class="block py-4 font-semibold text-brand-gold-dark">Mulai Diskusi</a>
+        </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section class="pt-40 pb-20 sm:pt-48 sm:pb-32 px-6 sm:px-12 max-w-7xl mx-auto min-h-[90vh] flex flex-col justify-center">
-        <div class="max-w-4xl">
-            <span class="text-brand-gold font-semibold tracking-[0.2em] uppercase text-xs sm:text-sm mb-6 block">Mitra Digital Anda</span>
-            <h1 class="font-serif text-5xl sm:text-7xl lg:text-8xl font-bold leading-[1.1] tracking-tight mb-8">
-                Jasa Pembuatan Website <br class="hidden sm:block" />
-                <!-- <span class="italic font-light text-brand-gray-dark">bukan sekadar</span> desain. -->
-            </h1>
-            <p class="text-brand-navy/80 text-lg sm:text-xl leading-relaxed font-medium max-w-2xl">
-                Kami membantu bisnis dan UMKM memiliki identitas digital yang profesional. Mengutamakan performa, kemudahan penggunaan, dan hasil yang dapat dipercaya oleh pelanggan Anda.
-            </p>
-        </div>
-    </section>
+    <main id="utama">
 
-    <!-- Pendekatan Kami -->
-    <section id="pendekatan" class="py-24 px-6 sm:px-12 hairline-t">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-16 lg:gap-8">
-                
-                <div class="lg:col-span-1">
-                    <h2 class="font-serif text-3xl sm:text-4xl font-bold sticky top-32">Mengapa Nauval Dev?</h2>
-                </div>
-
-                <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-12">
-                    <div>
-                        <span class="text-brand-gold text-2xl mb-4 block"><i class='bx bx-check-double'></i></span>
-                        <h3 class="text-xl font-bold mb-3">Solusi Praktis</h3>
-                        <p class="text-brand-gray-dark leading-relaxed">
-                            Bagi kami, klien tidak perlu pusing memikirkan urusan server atau kode. Kami menyediakan layanan terima beres, agar Anda bisa fokus mengurus bisnis.
-                        </p>
-                    </div>
-                    <div>
-                        <span class="text-brand-gold text-2xl mb-4 block"><i class='bx bx-mobile-alt'></i></span>
-                        <h3 class="text-xl font-bold mb-3">Desain Responsif</h3>
-                        <p class="text-brand-gray-dark leading-relaxed">
-                            Mayoritas pelanggan mengakses web dari HP. Kami memastikan setiap halaman tampil sempurna, rapi, dan cepat diakses melalui perangkat apa pun.
-                        </p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Layanan / 10 Kategori -->
-    <section id="layanan" class="py-24 px-6 sm:px-12 hairline-t bg-slate-50/50">
-        <div class="max-w-7xl mx-auto">
-            
-            <div class="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
-                <h2 class="font-serif text-4xl sm:text-5xl font-bold">Kategori Layanan</h2>
-                <p class="text-brand-gray-dark max-w-sm md:text-right">
-                    Pilih jenis website yang paling sesuai dengan kebutuhan skala bisnis Anda.
+        <!-- Hero -->
+        <section class="pt-36 pb-20 sm:pt-44 sm:pb-28 px-6 sm:px-12 lg:min-h-[90vh] flex items-center">
+            <div class="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-12 items-center">
+            <div class="lg:col-span-7">
+                <span class="text-brand-gold-dark font-semibold tracking-[0.2em] uppercase text-xs sm:text-sm mb-6 block">Mitra Digital Anda</span>
+                <h1 class="font-serif text-[2.75rem] sm:text-6xl lg:text-5xl xl:text-6xl font-bold leading-[1.1] tracking-tight mb-8">
+                    Jasa Pembuatan Website
+                    <span class="block italic font-normal text-brand-gold-dark">yang bekerja untuk bisnis Anda.</span>
+                </h1>
+                <p class="text-brand-navy/80 text-lg sm:text-xl leading-relaxed max-w-2xl mb-10">
+                    Kami membantu bisnis dan UMKM memiliki identitas digital yang profesional. Mengutamakan performa, kemudahan penggunaan, dan hasil yang dapat dipercaya oleh pelanggan Anda.
                 </p>
+                <div class="flex flex-col sm:flex-row gap-4 mb-10">
+                    <a href="#kontak" data-wa="Halo Nauval Dev, saya ingin konsultasi tentang pembuatan website." target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 bg-brand-navy text-brand-white px-8 py-4 font-semibold tracking-wide hover:bg-brand-navy-soft transition duration-300">
+                        <i class="bx bxl-whatsapp text-xl" aria-hidden="true"></i> Konsultasi Gratis
+                    </a>
+                    <a href="#karya" class="group inline-flex items-center justify-center gap-2 border border-brand-navy px-8 py-4 font-semibold tracking-wide hover:bg-brand-navy hover:text-brand-white transition duration-300">
+                        Lihat Karya <i class="bx bx-down-arrow-alt text-xl transition-transform duration-300 group-hover:translate-y-0.5" aria-hidden="true"></i>
+                    </a>
+                </div>
+                <ul class="flex flex-wrap gap-x-6 gap-y-2 text-sm text-brand-gray-dark">
+                    <li class="flex items-center gap-1.5"><i class="bx bx-check text-lg text-brand-gold-dark" aria-hidden="true"></i> Terima beres</li>
+                    <li class="flex items-center gap-1.5"><i class="bx bx-check text-lg text-brand-gold-dark" aria-hidden="true"></i> Responsif di semua perangkat</li>
+                    <li class="flex items-center gap-1.5"><i class="bx bx-check text-lg text-brand-gold-dark" aria-hidden="true"></i> Konsultasi tanpa biaya</li>
+                </ul>
             </div>
 
-            <!-- List Layanan Gaya Editorial -->
-            <ul class="hairline-t">
-                
-                <li class="group hairline-b py-6 flex flex-col sm:flex-row sm:items-center justify-between hover:bg-brand-white transition duration-300 px-4 -mx-4 sm:mx-0 sm:px-6 cursor-pointer">
-                    <h4 class="font-serif text-2xl text-brand-navy group-hover:text-brand-gold transition duration-300">1. Landing Page</h4>
-                    <p class="text-brand-gray-dark text-sm sm:text-base mt-2 sm:mt-0 sm:max-w-md sm:text-right">Halaman tunggal yang dirancang khusus untuk mempromosikan satu produk atau kampanye.</p>
-                </li>
-                
-                <li class="group hairline-b py-6 flex flex-col sm:flex-row sm:items-center justify-between hover:bg-brand-white transition duration-300 px-4 -mx-4 sm:mx-0 sm:px-6 cursor-pointer">
-                    <h4 class="font-serif text-2xl text-brand-navy group-hover:text-brand-gold transition duration-300">2. Squeeze Page</h4>
-                    <p class="text-brand-gray-dark text-sm sm:text-base mt-2 sm:mt-0 sm:max-w-md sm:text-right">Halaman fokus untuk mengumpulkan data pengunjung (seperti email atau nomor kontak).</p>
-                </li>
-
-                <li class="group hairline-b py-6 flex flex-col sm:flex-row sm:items-center justify-between hover:bg-brand-white transition duration-300 px-4 -mx-4 sm:mx-0 sm:px-6 cursor-pointer">
-                    <h4 class="font-serif text-2xl text-brand-navy group-hover:text-brand-gold transition duration-300">3. Company Profile</h4>
-                    <p class="text-brand-gray-dark text-sm sm:text-base mt-2 sm:mt-0 sm:max-w-md sm:text-right">Membangun kredibilitas bisnis dengan profil perusahaan yang profesional dan meyakinkan.</p>
-                </li>
-
-                <li class="group hairline-b py-6 flex flex-col sm:flex-row sm:items-center justify-between hover:bg-brand-white transition duration-300 px-4 -mx-4 sm:mx-0 sm:px-6 cursor-pointer">
-                    <h4 class="font-serif text-2xl text-brand-navy group-hover:text-brand-gold transition duration-300">4. E-Commerce</h4>
-                    <p class="text-brand-gray-dark text-sm sm:text-base mt-2 sm:mt-0 sm:max-w-md sm:text-right">Toko online lengkap dengan sistem keranjang belanja dan manajemen katalog produk.</p>
-                </li>
-
-                <li class="group hairline-b py-6 flex flex-col sm:flex-row sm:items-center justify-between hover:bg-brand-white transition duration-300 px-4 -mx-4 sm:mx-0 sm:px-6 cursor-pointer">
-                    <h4 class="font-serif text-2xl text-brand-navy group-hover:text-brand-gold transition duration-300">5. Portfolio</h4>
-                    <p class="text-brand-gray-dark text-sm sm:text-base mt-2 sm:mt-0 sm:max-w-md sm:text-right">Ruang digital untuk memamerkan karya, seni, atau pencapaian profesional Anda.</p>
-                </li>
-
-                <li class="group hairline-b py-6 flex flex-col sm:flex-row sm:items-center justify-between hover:bg-brand-white transition duration-300 px-4 -mx-4 sm:mx-0 sm:px-6 cursor-pointer">
-                    <h4 class="font-serif text-2xl text-brand-navy group-hover:text-brand-gold transition duration-300">6. Property</h4>
-                    <p class="text-brand-gray-dark text-sm sm:text-base mt-2 sm:mt-0 sm:max-w-md sm:text-right">Katalog properti untuk agen real estate dengan detail lokasi dan fitur bangunan.</p>
-                </li>
-
-                <li class="group hairline-b py-6 flex flex-col sm:flex-row sm:items-center justify-between hover:bg-brand-white transition duration-300 px-4 -mx-4 sm:mx-0 sm:px-6 cursor-pointer">
-                    <h4 class="font-serif text-2xl text-brand-navy group-hover:text-brand-gold transition duration-300">7. Travel</h4>
-                    <p class="text-brand-gray-dark text-sm sm:text-base mt-2 sm:mt-0 sm:max-w-md sm:text-right">Website agen wisata untuk menampilkan paket liburan, destinasi, dan panduan perjalanan.</p>
-                </li>
-
-                <li class="group hairline-b py-6 flex flex-col sm:flex-row sm:items-center justify-between hover:bg-brand-white transition duration-300 px-4 -mx-4 sm:mx-0 sm:px-6 cursor-pointer">
-                    <h4 class="font-serif text-2xl text-brand-navy group-hover:text-brand-gold transition duration-300">8. Restaurant</h4>
-                    <p class="text-brand-gray-dark text-sm sm:text-base mt-2 sm:mt-0 sm:max-w-md sm:text-right">Menampilkan buku menu digital, foto suasana, lokasi, hingga sistem reservasi meja.</p>
-                </li>
-
-                <li class="group hairline-b py-6 flex flex-col sm:flex-row sm:items-center justify-between hover:bg-brand-white transition duration-300 px-4 -mx-4 sm:mx-0 sm:px-6 cursor-pointer">
-                    <h4 class="font-serif text-2xl text-brand-navy group-hover:text-brand-gold transition duration-300">9. Dealer</h4>
-                    <p class="text-brand-gray-dark text-sm sm:text-base mt-2 sm:mt-0 sm:max-w-md sm:text-right">Showroom digital untuk kendaraan, menampilkan spesifikasi mesin, harga, dan ketersediaan.</p>
-                </li>
-
-                <li class="group hairline-b py-6 flex flex-col sm:flex-row sm:items-center justify-between hover:bg-brand-white transition duration-300 px-4 -mx-4 sm:mx-0 sm:px-6 cursor-pointer">
-                    <h4 class="font-serif text-2xl text-brand-navy group-hover:text-brand-gold transition duration-300">10. Invitation</h4>
-                    <p class="text-brand-gray-dark text-sm sm:text-base mt-2 sm:mt-0 sm:max-w-md sm:text-right">Undangan digital interaktif untuk pernikahan atau acara formal yang elegan dan mudah dibagikan.</p>
-                </li>
-
-            </ul>
-        </div>
-    </section>
-
-    <!-- Karya Terpilih (Cafe Pale) -->
-    <section id="karya" class="py-24 px-6 sm:px-12 hairline-t">
-        <div class="max-w-7xl mx-auto">
-            
-            <div class="mb-16">
-                <h2 class="font-serif text-4xl sm:text-5xl font-bold">Karya Terpilih</h2>
-            </div>
-
-            <!-- Asymmetrical Layout -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-                
-                <!-- Gambar Mockup -->
-                <div class="lg:col-span-7 relative group">
-                    <div class="aspect-[4/3] lg:aspect-auto lg:h-[70vh] bg-slate-100 overflow-hidden relative">
-                        <!-- Ganti src dengan gambar screenshot Cafe Pale -->
-                        <img src="images/cafe-pale.jpg" alt="Website Cafe Pale" class="w-full h-full object-cover transition duration-700 group-hover:scale-105" onerror="this.src='https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1200&q=80'">
-                        <div class="absolute inset-0 bg-brand-navy/10 group-hover:bg-transparent transition duration-500 pointer-events-none"></div>
+            <!-- Bukti karya nyata di hero -->
+            <figure class="lg:col-span-5 relative">
+                <div class="absolute -top-4 -right-4 w-24 h-24 border-t-4 border-r-4 border-brand-gold hidden sm:block" aria-hidden="true"></div>
+                <div class="relative shadow-2xl shadow-brand-navy/20 bg-brand-white">
+                    <div class="flex items-center gap-1.5 px-4 py-3 bg-brand-navy" aria-hidden="true">
+                        <span class="w-2.5 h-2.5 rounded-full bg-white/30"></span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-white/30"></span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-white/30"></span>
                     </div>
+                    <img src="assets/respawn-playroom.webp" alt="Tampilan website Respawn Playroom, salah satu karya Nauval Dev" width="1600" height="1265" fetchpriority="high" class="w-full h-auto block">
+                </div>
+                <figcaption class="mt-4 text-sm text-brand-gray-dark">Karya: Respawn Playroom, website booking ruangan PS5 &amp; Nintendo Switch.</figcaption>
+            </figure>
+            </div>
+        </section>
+
+        <!-- Pendekatan Kami -->
+        <section id="pendekatan" class="py-24 px-6 sm:px-12 hairline-t">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-14 lg:gap-8">
+                <div>
+                    <h2 class="font-serif text-4xl sm:text-5xl font-bold leading-tight lg:sticky lg:top-32">Mengapa Nauval Dev?</h2>
                 </div>
 
-                <!-- Penjelasan Natural & Profesional -->
-                <div class="lg:col-span-5 space-y-6">
-                    <div class="space-y-2">
-                        <span class="text-xs font-bold uppercase tracking-widest text-brand-gold">Website Restaurant / UMKM</span>
-                        <h3 class="font-serif text-3xl sm:text-4xl font-bold">Cafe Pale</h3>
+                <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-14">
+                    <div class="reveal">
+                        <span class="text-brand-gold-dark text-3xl mb-4 block"><i class="bx bx-check-double" aria-hidden="true"></i></span>
+                        <h3 class="text-xl font-bold mb-3">Solusi Praktis</h3>
+                        <p class="text-brand-gray-dark leading-relaxed">Anda tidak perlu pusing memikirkan urusan server atau kode. Kami menyediakan layanan terima beres, agar Anda bisa fokus mengurus bisnis.</p>
                     </div>
-                    
-                    <p class="text-brand-gray-dark text-base leading-relaxed">
-                        Platform digital yang dirancang untuk UMKM kuliner. Tujuannya adalah mempermudah pelanggan melihat suasana dan menu kafe, serta melakukan pemesanan tanpa antrean yang membingungkan.
-                    </p>
+                    <div class="reveal">
+                        <span class="text-brand-gold-dark text-3xl mb-4 block"><i class="bx bx-mobile-alt" aria-hidden="true"></i></span>
+                        <h3 class="text-xl font-bold mb-3">Desain Responsif</h3>
+                        <p class="text-brand-gray-dark leading-relaxed">Mayoritas pelanggan mengakses web dari HP. Kami memastikan setiap halaman tampil rapi dan cepat diakses melalui perangkat apa pun.</p>
+                    </div>
+                    <div class="reveal">
+                        <span class="text-brand-gold-dark text-3xl mb-4 block"><i class="bx bxl-whatsapp" aria-hidden="true"></i></span>
+                        <h3 class="text-xl font-bold mb-3">Terhubung ke WhatsApp</h3>
+                        <p class="text-brand-gray-dark leading-relaxed">Pelanggan cukup menekan satu tombol untuk memesan atau bertanya. Tidak ada formulir panjang yang membuat mereka batal menghubungi Anda.</p>
+                    </div>
+                    <div class="reveal">
+                        <span class="text-brand-gold-dark text-3xl mb-4 block"><i class="bx bx-conversation" aria-hidden="true"></i></span>
+                        <h3 class="text-xl font-bold mb-3">Konsultasi Tanpa Biaya</h3>
+                        <p class="text-brand-gray-dark leading-relaxed">Belum yakin butuh website seperti apa? Ceritakan bisnis Anda, dan kami bantu merumuskan pilihan yang paling masuk akal.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-                    <div class="pt-4 space-y-4">
-                        <h4 class="font-bold text-brand-navy text-sm uppercase tracking-wider">Detail Pekerjaan:</h4>
-                        <ul class="space-y-3">
+        <!-- Layanan -->
+        <section id="layanan" class="py-24 px-6 sm:px-12 hairline-t bg-brand-cream">
+            <div class="max-w-7xl mx-auto">
+                <div class="mb-14 flex flex-col md:flex-row md:items-end justify-between gap-6">
+                    <h2 class="font-serif text-4xl sm:text-5xl font-bold">Kategori Layanan</h2>
+                    <p class="text-brand-gray-dark max-w-sm md:text-right">Pilih jenis website yang sesuai dengan bisnis Anda, lalu lanjutkan diskusi langsung lewat WhatsApp.</p>
+                </div>
+
+                <ul class="hairline-t">
+                    <li class="hairline-b"><a href="#kontak" data-wa="Halo Nauval Dev, saya tertarik dengan website Landing Page." target="_blank" rel="noopener noreferrer" class="group grid grid-cols-[2.5rem_1fr_auto] md:grid-cols-[3.5rem_minmax(0,1fr)_minmax(0,1.5fr)_2rem] items-center gap-x-3 md:gap-x-6 gap-y-2 py-6 px-2 md:px-4 hover:bg-brand-white transition duration-300">
+                        <span class="text-sm font-medium text-brand-gold-dark tabular-nums">01</span>
+                        <h3 class="font-serif text-2xl group-hover:text-brand-gold-dark transition duration-300">Landing Page</h3>
+                        <p class="text-brand-gray-dark text-sm sm:text-base col-start-2 col-span-2 row-start-2 md:col-start-3 md:col-span-1 md:row-start-1">Halaman tunggal yang dirancang khusus untuk mempromosikan satu produk atau kampanye.</p>
+                        <i class="bx bx-right-arrow-alt text-2xl text-brand-gold-dark justify-self-end transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true"></i>
+                    </a></li>
+                    <li class="hairline-b"><a href="#kontak" data-wa="Halo Nauval Dev, saya tertarik dengan website Squeeze Page." target="_blank" rel="noopener noreferrer" class="group grid grid-cols-[2.5rem_1fr_auto] md:grid-cols-[3.5rem_minmax(0,1fr)_minmax(0,1.5fr)_2rem] items-center gap-x-3 md:gap-x-6 gap-y-2 py-6 px-2 md:px-4 hover:bg-brand-white transition duration-300">
+                        <span class="text-sm font-medium text-brand-gold-dark tabular-nums">02</span>
+                        <h3 class="font-serif text-2xl group-hover:text-brand-gold-dark transition duration-300">Squeeze Page</h3>
+                        <p class="text-brand-gray-dark text-sm sm:text-base col-start-2 col-span-2 row-start-2 md:col-start-3 md:col-span-1 md:row-start-1">Halaman fokus untuk mengumpulkan data pengunjung (seperti email atau nomor kontak).</p>
+                        <i class="bx bx-right-arrow-alt text-2xl text-brand-gold-dark justify-self-end transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true"></i>
+                    </a></li>
+                    <li class="hairline-b"><a href="#kontak" data-wa="Halo Nauval Dev, saya tertarik dengan website Company Profile." target="_blank" rel="noopener noreferrer" class="group grid grid-cols-[2.5rem_1fr_auto] md:grid-cols-[3.5rem_minmax(0,1fr)_minmax(0,1.5fr)_2rem] items-center gap-x-3 md:gap-x-6 gap-y-2 py-6 px-2 md:px-4 hover:bg-brand-white transition duration-300">
+                        <span class="text-sm font-medium text-brand-gold-dark tabular-nums">03</span>
+                        <h3 class="font-serif text-2xl group-hover:text-brand-gold-dark transition duration-300">Company Profile</h3>
+                        <p class="text-brand-gray-dark text-sm sm:text-base col-start-2 col-span-2 row-start-2 md:col-start-3 md:col-span-1 md:row-start-1">Membangun kredibilitas bisnis dengan profil perusahaan yang profesional dan meyakinkan.</p>
+                        <i class="bx bx-right-arrow-alt text-2xl text-brand-gold-dark justify-self-end transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true"></i>
+                    </a></li>
+                    <li class="hairline-b"><a href="#kontak" data-wa="Halo Nauval Dev, saya tertarik dengan website E-Commerce." target="_blank" rel="noopener noreferrer" class="group grid grid-cols-[2.5rem_1fr_auto] md:grid-cols-[3.5rem_minmax(0,1fr)_minmax(0,1.5fr)_2rem] items-center gap-x-3 md:gap-x-6 gap-y-2 py-6 px-2 md:px-4 hover:bg-brand-white transition duration-300">
+                        <span class="text-sm font-medium text-brand-gold-dark tabular-nums">04</span>
+                        <h3 class="font-serif text-2xl group-hover:text-brand-gold-dark transition duration-300">E-Commerce</h3>
+                        <p class="text-brand-gray-dark text-sm sm:text-base col-start-2 col-span-2 row-start-2 md:col-start-3 md:col-span-1 md:row-start-1">Toko online lengkap dengan sistem keranjang belanja dan manajemen katalog produk.</p>
+                        <i class="bx bx-right-arrow-alt text-2xl text-brand-gold-dark justify-self-end transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true"></i>
+                    </a></li>
+                    <li class="hairline-b"><a href="#kontak" data-wa="Halo Nauval Dev, saya tertarik dengan website Portfolio." target="_blank" rel="noopener noreferrer" class="group grid grid-cols-[2.5rem_1fr_auto] md:grid-cols-[3.5rem_minmax(0,1fr)_minmax(0,1.5fr)_2rem] items-center gap-x-3 md:gap-x-6 gap-y-2 py-6 px-2 md:px-4 hover:bg-brand-white transition duration-300">
+                        <span class="text-sm font-medium text-brand-gold-dark tabular-nums">05</span>
+                        <h3 class="font-serif text-2xl group-hover:text-brand-gold-dark transition duration-300">Portfolio</h3>
+                        <p class="text-brand-gray-dark text-sm sm:text-base col-start-2 col-span-2 row-start-2 md:col-start-3 md:col-span-1 md:row-start-1">Ruang digital untuk memamerkan karya, seni, atau pencapaian profesional Anda.</p>
+                        <i class="bx bx-right-arrow-alt text-2xl text-brand-gold-dark justify-self-end transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true"></i>
+                    </a></li>
+                    <li class="hairline-b"><a href="#kontak" data-wa="Halo Nauval Dev, saya tertarik dengan website Property." target="_blank" rel="noopener noreferrer" class="group grid grid-cols-[2.5rem_1fr_auto] md:grid-cols-[3.5rem_minmax(0,1fr)_minmax(0,1.5fr)_2rem] items-center gap-x-3 md:gap-x-6 gap-y-2 py-6 px-2 md:px-4 hover:bg-brand-white transition duration-300">
+                        <span class="text-sm font-medium text-brand-gold-dark tabular-nums">06</span>
+                        <h3 class="font-serif text-2xl group-hover:text-brand-gold-dark transition duration-300">Property</h3>
+                        <p class="text-brand-gray-dark text-sm sm:text-base col-start-2 col-span-2 row-start-2 md:col-start-3 md:col-span-1 md:row-start-1">Katalog properti untuk agen real estate dengan detail lokasi dan fitur bangunan.</p>
+                        <i class="bx bx-right-arrow-alt text-2xl text-brand-gold-dark justify-self-end transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true"></i>
+                    </a></li>
+                    <li class="hairline-b"><a href="#kontak" data-wa="Halo Nauval Dev, saya tertarik dengan website Travel." target="_blank" rel="noopener noreferrer" class="group grid grid-cols-[2.5rem_1fr_auto] md:grid-cols-[3.5rem_minmax(0,1fr)_minmax(0,1.5fr)_2rem] items-center gap-x-3 md:gap-x-6 gap-y-2 py-6 px-2 md:px-4 hover:bg-brand-white transition duration-300">
+                        <span class="text-sm font-medium text-brand-gold-dark tabular-nums">07</span>
+                        <h3 class="font-serif text-2xl group-hover:text-brand-gold-dark transition duration-300">Travel</h3>
+                        <p class="text-brand-gray-dark text-sm sm:text-base col-start-2 col-span-2 row-start-2 md:col-start-3 md:col-span-1 md:row-start-1">Website agen wisata untuk menampilkan paket liburan, destinasi, dan panduan perjalanan.</p>
+                        <i class="bx bx-right-arrow-alt text-2xl text-brand-gold-dark justify-self-end transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true"></i>
+                    </a></li>
+                    <li class="hairline-b"><a href="#kontak" data-wa="Halo Nauval Dev, saya tertarik dengan website Restaurant." target="_blank" rel="noopener noreferrer" class="group grid grid-cols-[2.5rem_1fr_auto] md:grid-cols-[3.5rem_minmax(0,1fr)_minmax(0,1.5fr)_2rem] items-center gap-x-3 md:gap-x-6 gap-y-2 py-6 px-2 md:px-4 hover:bg-brand-white transition duration-300">
+                        <span class="text-sm font-medium text-brand-gold-dark tabular-nums">08</span>
+                        <h3 class="font-serif text-2xl group-hover:text-brand-gold-dark transition duration-300">Restaurant</h3>
+                        <p class="text-brand-gray-dark text-sm sm:text-base col-start-2 col-span-2 row-start-2 md:col-start-3 md:col-span-1 md:row-start-1">Menampilkan buku menu digital, foto suasana, lokasi, hingga sistem reservasi meja.</p>
+                        <i class="bx bx-right-arrow-alt text-2xl text-brand-gold-dark justify-self-end transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true"></i>
+                    </a></li>
+                    <li class="hairline-b"><a href="#kontak" data-wa="Halo Nauval Dev, saya tertarik dengan website Dealer." target="_blank" rel="noopener noreferrer" class="group grid grid-cols-[2.5rem_1fr_auto] md:grid-cols-[3.5rem_minmax(0,1fr)_minmax(0,1.5fr)_2rem] items-center gap-x-3 md:gap-x-6 gap-y-2 py-6 px-2 md:px-4 hover:bg-brand-white transition duration-300">
+                        <span class="text-sm font-medium text-brand-gold-dark tabular-nums">09</span>
+                        <h3 class="font-serif text-2xl group-hover:text-brand-gold-dark transition duration-300">Dealer</h3>
+                        <p class="text-brand-gray-dark text-sm sm:text-base col-start-2 col-span-2 row-start-2 md:col-start-3 md:col-span-1 md:row-start-1">Showroom digital untuk kendaraan, menampilkan spesifikasi mesin, harga, dan ketersediaan.</p>
+                        <i class="bx bx-right-arrow-alt text-2xl text-brand-gold-dark justify-self-end transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true"></i>
+                    </a></li>
+                    <li class="hairline-b"><a href="#kontak" data-wa="Halo Nauval Dev, saya tertarik dengan website Invitation (undangan digital)." target="_blank" rel="noopener noreferrer" class="group grid grid-cols-[2.5rem_1fr_auto] md:grid-cols-[3.5rem_minmax(0,1fr)_minmax(0,1.5fr)_2rem] items-center gap-x-3 md:gap-x-6 gap-y-2 py-6 px-2 md:px-4 hover:bg-brand-white transition duration-300">
+                        <span class="text-sm font-medium text-brand-gold-dark tabular-nums">10</span>
+                        <h3 class="font-serif text-2xl group-hover:text-brand-gold-dark transition duration-300">Invitation</h3>
+                        <p class="text-brand-gray-dark text-sm sm:text-base col-start-2 col-span-2 row-start-2 md:col-start-3 md:col-span-1 md:row-start-1">Undangan digital interaktif untuk pernikahan atau acara formal yang elegan dan mudah dibagikan.</p>
+                        <i class="bx bx-right-arrow-alt text-2xl text-brand-gold-dark justify-self-end transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true"></i>
+                    </a></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Karya Terpilih -->
+        <section id="karya" class="py-24 px-6 sm:px-12 hairline-t">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="font-serif text-4xl sm:text-5xl font-bold mb-16">Karya Terpilih</h2>
+
+                <!-- Hurisol -->
+                <article class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center mb-24">
+                    <div class="lg:col-span-5 space-y-6 order-2 lg:order-1">
+                        <div class="space-y-2">
+                            <span class="text-xs font-bold uppercase tracking-widest text-brand-gold-dark">Landing Page / UMKM</span>
+                            <h3 class="font-serif text-3xl sm:text-4xl font-bold">Hurisol</h3>
+                        </div>
+                        <p class="text-brand-gray-dark leading-relaxed">Website untuk UMKM camilan <em>homemade</em>. Foto produk menjadi pusat perhatian, dan pengunjung bisa langsung memesan tanpa langkah tambahan.</p>
+                        <ul class="space-y-3 pt-2">
                             <li class="flex items-start gap-3">
-                                <i class='bx bx-check text-brand-gold text-xl mt-0.5'></i>
-                                <span class="text-brand-navy/80 text-sm leading-relaxed">Membangun <strong>5 Halaman Utama</strong> yang bersih dan responsif (Beranda, Tentang Kami, Menu, Galeri, dan Kontak).</span>
+                                <i class="bx bx-check text-brand-gold-dark text-xl mt-0.5" aria-hidden="true"></i>
+                                <span class="text-brand-navy/80 text-sm leading-relaxed"><strong>Tampilan hangat</strong> yang selaras dengan karakter produk rumahan.</span>
                             </li>
                             <li class="flex items-start gap-3">
-                                <i class='bx bx-check text-brand-gold text-xl mt-0.5'></i>
-                                <span class="text-brand-navy/80 text-sm leading-relaxed">Fitur <strong>Galeri Kafe</strong> interaktif agar pelanggan mendapat gambaran jelas tentang suasana tempat.</span>
+                                <i class="bx bx-check text-brand-gold-dark text-xl mt-0.5" aria-hidden="true"></i>
+                                <span class="text-brand-navy/80 text-sm leading-relaxed"><strong>Bagian cerita dan varian rasa</strong> untuk memperkenalkan produk.</span>
                             </li>
                             <li class="flex items-start gap-3">
-                                <i class='bx bx-check text-brand-gold text-xl mt-0.5'></i>
-                                <span class="text-brand-navy/80 text-sm leading-relaxed"><strong>Smart WhatsApp Routing:</strong> Tombol pesanan otomatis terhubung ke nomor tim yang berbeda-beda, menyesuaikan dengan jam operasional kafe yang sedang aktif.</span>
+                                <i class="bx bx-check text-brand-gold-dark text-xl mt-0.5" aria-hidden="true"></i>
+                                <span class="text-brand-navy/80 text-sm leading-relaxed"><strong>Pemesanan via WhatsApp</strong> dari tombol yang selalu mudah ditemukan.</span>
                             </li>
                         </ul>
                     </div>
+                    <div class="lg:col-span-7 order-1 lg:order-2 reveal">
+                        <img src="assets/hurisol.webp" alt="Tampilan website Hurisol" width="1207" height="954" loading="lazy" class="w-full h-auto block shadow-xl shadow-brand-navy/15">
+                    </div>
+                </article>
+
+                <!-- The Bold Barbershop -->
+                <article class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center mb-24">
+                    <div class="lg:col-span-7 reveal">
+                        <a href="https://thebold-barbershop.site.je/" target="_blank" rel="noopener noreferrer" aria-label="Buka website The Bold Barbershop">
+                            <img src="assets/thebold.webp" alt="Tampilan website The Bold Barbershop" width="1600" height="1265" loading="lazy" class="w-full h-auto block shadow-xl shadow-brand-navy/15">
+                        </a>
+                    </div>
+
+                    <div class="lg:col-span-5 space-y-6">
+                        <div class="space-y-2">
+                            <span class="text-xs font-bold uppercase tracking-widest text-brand-gold-dark">Website Barbershop / Sistem Reservasi</span>
+                            <h3 class="font-serif text-3xl sm:text-4xl font-bold">The Bold Barbershop</h3>
+                        </div>
+                        <p class="text-brand-gray-dark leading-relaxed">Website dan sistem reservasi untuk barbershop di Baleendah, Bandung. Pelanggan bisa memesan jadwal cukur dari HP tanpa harus menanyakan jam kosong lewat chat.</p>
+                        <ul class="space-y-3 pt-2">
+                            <li class="flex items-start gap-3">
+                                <i class="bx bx-check text-brand-gold-dark text-xl mt-0.5" aria-hidden="true"></i>
+                                <span class="text-brand-navy/80 text-sm leading-relaxed"><strong>Reservasi online:</strong> pilih tanggal, layanan, dan jam, lalu total harga dihitung otomatis.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="bx bx-check text-brand-gold-dark text-xl mt-0.5" aria-hidden="true"></i>
+                                <span class="text-brand-navy/80 text-sm leading-relaxed"><strong>Rincian booking terkirim rapi ke WhatsApp</strong> admin dengan satu tombol.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="bx bx-check text-brand-gold-dark text-xl mt-0.5" aria-hidden="true"></i>
+                                <span class="text-brand-navy/80 text-sm leading-relaxed"><strong>Layanan, galeri hasil potong, lokasi, dan jam buka</strong> dalam satu halaman bertema gelap yang maskulin.</span>
+                            </li>
+                        </ul>
+                        <a href="https://thebold-barbershop.site.je/" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-2 font-semibold text-brand-navy border-b border-brand-gold pb-1 hover:text-brand-gold-dark transition duration-300">
+                            Kunjungi website <i class="bx bx-right-arrow-alt text-xl transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Respawn Playroom (konsep) -->
+                <article class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+                    <div class="lg:col-span-5 space-y-6 order-2 lg:order-1">
+                        <div class="space-y-2">
+                            <span class="text-xs font-bold uppercase tracking-widest text-brand-gold-dark">Website Booking / Konsep</span>
+                            <h3 class="font-serif text-3xl sm:text-4xl font-bold">Respawn Playroom</h3>
+                        </div>
+                        <p class="text-brand-gray-dark leading-relaxed">Konsep website untuk rental ruangan PS5 dan Nintendo Switch. Jadwal kosong, info ruangan, harga, dan list game yang biasanya tersebar di Canva dan Instagram, kini ada di satu halaman.</p>
+                        <ul class="space-y-3 pt-2">
+                            <li class="flex items-start gap-3">
+                                <i class="bx bx-check text-brand-gold-dark text-xl mt-0.5" aria-hidden="true"></i>
+                                <span class="text-brand-navy/80 text-sm leading-relaxed"><strong>Jadwal live per ruangan:</strong> admin cukup memperbarui Google Sheets dari HP, website ikut berubah.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="bx bx-check text-brand-gold-dark text-xl mt-0.5" aria-hidden="true"></i>
+                                <span class="text-brand-navy/80 text-sm leading-relaxed"><strong>Pencarian game</strong> untuk tahu ruangan mana yang punya game favorit pelanggan.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="bx bx-check text-brand-gold-dark text-xl mt-0.5" aria-hidden="true"></i>
+                                <span class="text-brand-navy/80 text-sm leading-relaxed"><strong>Harga paket dihitung otomatis</strong>, lalu pesan booking terisi rapi ke WhatsApp.</span>
+                            </li>
+                        </ul>
+                        <a href="https://playroom.nauvaldev.my.id/" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-2 font-semibold text-brand-navy border-b border-brand-gold pb-1 hover:text-brand-gold-dark transition duration-300">
+                            Coba demo <i class="bx bx-right-arrow-alt text-xl transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="lg:col-span-7 order-1 lg:order-2 reveal">
+                        <a href="https://playroom.nauvaldev.my.id/" target="_blank" rel="noopener noreferrer" aria-label="Buka demo Respawn Playroom">
+                            <img src="assets/respawn-playroom.webp" alt="Tampilan website konsep Respawn Playroom" width="1600" height="1265" loading="lazy" class="w-full h-auto block shadow-xl shadow-brand-navy/15">
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Karya Lainnya: konsep per kategori layanan -->
+                <div class="mt-28 hairline-t pt-14">
+                    <div class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4">
+                        <h3 class="font-serif text-3xl sm:text-4xl font-bold">Karya Lainnya</h3>
+                        <p class="text-brand-gray-dark max-w-md md:text-right">Website konsep untuk kategori layanan kami. Semua bisa dicoba langsung, dari keranjang belanja sampai simulasi kredit.</p>
+                    </div>
+                    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-14">
+                        <li class="reveal">
+                            <a href="https://kawa-kebun.nauvaldev.my.id/" target="_blank" rel="noopener noreferrer" class="group block">
+                                <img src="assets/karya-kawa-kebun.webp" alt="Tampilan website Kawa Kebun, toko online roastery kopi" width="1200" height="806" loading="lazy" class="w-full h-auto block shadow-lg shadow-brand-navy/10 transition duration-300 group-hover:-translate-y-1">
+                                <span class="mt-5 block text-xs font-bold uppercase tracking-widest text-brand-gold-dark">E-Commerce</span>
+                                <span class="mt-1 flex items-center gap-2 font-serif text-2xl font-bold group-hover:text-brand-gold-dark transition duration-300">Kawa Kebun <i class="bx bx-right-arrow-alt text-xl transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true"></i></span>
+                                <span class="mt-2 block text-brand-gray-dark text-sm leading-relaxed">Toko online roastery kopi: pilih berat dan gilingan, keranjang belanja, lalu pesanan terkirim rapi ke WhatsApp.</span>
+                            </a>
+                        </li>
+                        <li class="reveal">
+                            <a href="https://rute-kabut.nauvaldev.my.id/" target="_blank" rel="noopener noreferrer" class="group block">
+                                <img src="assets/karya-rute-kabut.webp" alt="Tampilan website Rute Kabut, open trip alam sekitar Bandung" width="1200" height="806" loading="lazy" class="w-full h-auto block shadow-lg shadow-brand-navy/10 transition duration-300 group-hover:-translate-y-1">
+                                <span class="mt-5 block text-xs font-bold uppercase tracking-widest text-brand-gold-dark">Travel</span>
+                                <span class="mt-1 flex items-center gap-2 font-serif text-2xl font-bold group-hover:text-brand-gold-dark transition duration-300">Rute Kabut <i class="bx bx-right-arrow-alt text-xl transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true"></i></span>
+                                <span class="mt-2 block text-brand-gray-dark text-sm leading-relaxed">Open trip alam: jadwal keberangkatan dengan sisa kursi, itinerary per jam, dan hitung DP otomatis.</span>
+                            </a>
+                        </li>
+                        <li class="reveal">
+                            <a href="https://lajur-motor.nauvaldev.my.id/" target="_blank" rel="noopener noreferrer" class="group block">
+                                <img src="assets/karya-lajur-motor.webp" alt="Tampilan website Lajur Motor, showroom motor bekas" width="1200" height="806" loading="lazy" class="w-full h-auto block shadow-lg shadow-brand-navy/10 transition duration-300 group-hover:-translate-y-1">
+                                <span class="mt-5 block text-xs font-bold uppercase tracking-widest text-brand-gold-dark">Dealer</span>
+                                <span class="mt-1 flex items-center gap-2 font-serif text-2xl font-bold group-hover:text-brand-gold-dark transition duration-300">Lajur Motor <i class="bx bx-right-arrow-alt text-xl transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true"></i></span>
+                                <span class="mt-2 block text-brand-gray-dark text-sm leading-relaxed">Showroom motor bekas: filter unit, laporan inspeksi per bagian, simulasi kredit, dan jadwal test ride.</span>
+                            </a>
+                        </li>
+                        <li class="reveal">
+                            <a href="https://kelas-etalase.nauvaldev.my.id/" target="_blank" rel="noopener noreferrer" class="group block">
+                                <img src="assets/karya-kelas-etalase.webp" alt="Tampilan website Kelas Etalase, pendaftaran workshop" width="1200" height="806" loading="lazy" class="w-full h-auto block shadow-lg shadow-brand-navy/10 transition duration-300 group-hover:-translate-y-1">
+                                <span class="mt-5 block text-xs font-bold uppercase tracking-widest text-brand-gold-dark">Squeeze Page</span>
+                                <span class="mt-1 flex items-center gap-2 font-serif text-2xl font-bold group-hover:text-brand-gold-dark transition duration-300">Kelas Etalase <i class="bx bx-right-arrow-alt text-xl transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true"></i></span>
+                                <span class="mt-2 block text-brand-gray-dark text-sm leading-relaxed">Halaman pendaftaran workshop: satu form fokus, kode peserta, dan pengingat kalender otomatis.</span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Call to Action -->
-    <section id="kontak" class="py-24 px-6 sm:px-12 bg-brand-navy text-brand-white text-center">
-        <div class="max-w-3xl mx-auto space-y-8">
-            <h2 class="font-serif text-4xl sm:text-5xl font-bold leading-tight">
-                Mari bicarakan <br class="hidden sm:block" />
-                <span class="text-brand-gold italic">kebutuhan website</span> Anda.
-            </h2>
-            <p class="text-brand-gray text-base sm:text-lg max-w-xl mx-auto leading-relaxed">
-                Konsultasikan ide Anda tanpa biaya. Kami siap membantu merumuskan website seperti apa yang paling efektif untuk bisnis Anda saat ini.
-            </p>
-            <div class="pt-6">
-                <!-- Ganti nomor HP ke nomor WA kamu -->
-                <a href="https://wa.me/6281234567890" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-brand-gold text-brand-navy px-8 py-4 font-bold tracking-wide hover:bg-white transition duration-300">
-                    <i class='bx bxl-whatsapp text-xl'></i> Diskusi via WhatsApp
-                </a>
+        <!-- Alur Kerja -->
+        <section id="alur" class="py-24 px-6 sm:px-12 hairline-t bg-brand-cream">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="font-serif text-4xl sm:text-5xl font-bold mb-16">Alur Kerja</h2>
+                <ol class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+                    <li class="reveal hairline-t pt-6">
+                        <span class="font-serif italic text-4xl text-brand-gold-dark block mb-4">1</span>
+                        <h3 class="text-lg font-bold mb-2">Diskusi</h3>
+                        <p class="text-brand-gray-dark text-sm leading-relaxed">Anda menceritakan bisnis dan tujuan Anda. Kami merumuskan jenis website yang paling sesuai.</p>
+                    </li>
+                    <li class="reveal hairline-t pt-6">
+                        <span class="font-serif italic text-4xl text-brand-gold-dark block mb-4">2</span>
+                        <h3 class="text-lg font-bold mb-2">Perancangan</h3>
+                        <p class="text-brand-gray-dark text-sm leading-relaxed">Kami menyusun struktur dan desain halaman, lalu menyesuaikannya bersama Anda.</p>
+                    </li>
+                    <li class="reveal hairline-t pt-6">
+                        <span class="font-serif italic text-4xl text-brand-gold-dark block mb-4">3</span>
+                        <h3 class="text-lg font-bold mb-2">Pembuatan</h3>
+                        <p class="text-brand-gray-dark text-sm leading-relaxed">Website dibangun dan diuji agar rapi serta cepat di HP maupun komputer.</p>
+                    </li>
+                    <li class="reveal hairline-t pt-6">
+                        <span class="font-serif italic text-4xl text-brand-gold-dark block mb-4">4</span>
+                        <h3 class="text-lg font-bold mb-2">Online</h3>
+                        <p class="text-brand-gray-dark text-sm leading-relaxed">Urusan server kami tangani sampai website siap dikunjungi pelanggan Anda.</p>
+                    </li>
+                </ol>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <!-- Call to Action -->
+        <section id="kontak" class="py-24 sm:py-32 px-6 sm:px-12 bg-brand-navy text-brand-white text-center">
+            <div class="max-w-3xl mx-auto space-y-8">
+                <h2 class="font-serif text-4xl sm:text-6xl font-bold leading-tight">
+                    Mari bicarakan <br class="hidden sm:block">
+                    <span class="text-brand-gold italic font-normal">kebutuhan website</span> Anda.
+                </h2>
+                <p class="text-brand-gray text-base sm:text-lg max-w-xl mx-auto leading-relaxed">Konsultasikan ide Anda tanpa biaya. Kami siap membantu merumuskan website seperti apa yang paling efektif untuk bisnis Anda saat ini.</p>
+                <div class="pt-4">
+                    <a href="#kontak" data-wa="Halo Nauval Dev, saya ingin konsultasi tentang pembuatan website." target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-brand-gold text-brand-navy px-8 py-4 font-bold tracking-wide hover:bg-white transition duration-300">
+                        <i class="bx bxl-whatsapp text-xl" aria-hidden="true"></i> Diskusi via WhatsApp
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <!-- Footer -->
-    <footer class="py-8 px-6 sm:px-12 bg-brand-white hairline-t text-center sm:text-left">
-        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p class="text-brand-gray-dark text-xs sm:text-sm">
-                &copy; 2026 Nauval Dev. Dikelola secara profesional.
-            </p>
+    <footer class="pt-8 pb-24 md:pb-8 px-6 sm:px-12 bg-brand-white hairline-t">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-left">
+            <p class="text-brand-gray-dark text-sm">&copy; 2026 Nauval Dev. Dikelola secara profesional.</p>
+            <!-- Aktifkan setelah URL akun diisi:
             <div class="flex gap-4">
-                <a href="#" class="text-brand-gray-dark hover:text-brand-gold transition"><i class='bx bxl-instagram text-xl'></i></a>
-                <a href="#" class="text-brand-gray-dark hover:text-brand-gold transition"><i class='bx bxl-linkedin-square text-xl'></i></a>
+                <a href="URL_INSTAGRAM" aria-label="Instagram Nauval Dev" class="text-brand-gray-dark hover:text-brand-gold-dark transition"><i class="bx bxl-instagram text-2xl" aria-hidden="true"></i></a>
+                <a href="URL_LINKEDIN" aria-label="LinkedIn Nauval Dev" class="text-brand-gray-dark hover:text-brand-gold-dark transition"><i class="bx bxl-linkedin-square text-2xl" aria-hidden="true"></i></a>
             </div>
+            -->
         </div>
     </footer>
 
+    <!-- Tombol WhatsApp mengambang (HP) -->
+    <a href="#kontak" data-wa="Halo Nauval Dev, saya ingin konsultasi tentang pembuatan website." target="_blank" rel="noopener noreferrer" aria-label="Diskusi via WhatsApp" class="md:hidden fixed bottom-5 right-5 z-40 w-14 h-14 flex items-center justify-center rounded-full bg-brand-navy text-brand-gold text-3xl shadow-lg shadow-brand-navy/30">
+        <i class="bx bxl-whatsapp" aria-hidden="true"></i>
+    </a>
+
+    <script>
+        // GANTI dengan nomor WhatsApp asli (format 62...). Semua tombol WA mengikuti nilai ini.
+        const WA_NUMBER = '6281234567890';
+
+        document.querySelectorAll('[data-wa]').forEach((link) => {
+            link.href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(link.dataset.wa)}`;
+        });
+
+        // Menu mobile
+        const menuButton = document.getElementById('menuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const setMenu = (open) => {
+            mobileMenu.classList.toggle('hidden', !open);
+            menuButton.setAttribute('aria-expanded', String(open));
+            menuButton.setAttribute('aria-label', open ? 'Tutup menu' : 'Buka menu');
+            menuButton.querySelector('i').className = open ? 'bx bx-x' : 'bx bx-menu';
+        };
+        menuButton.addEventListener('click', () => setMenu(mobileMenu.classList.contains('hidden')));
+        mobileMenu.addEventListener('click', (e) => { if (e.target.closest('a')) setMenu(false); });
+
+        // Animasi muncul saat di-scroll
+        const reveals = document.querySelectorAll('.reveal');
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { rootMargin: '0px 0px -8% 0px' });
+            reveals.forEach((el) => observer.observe(el));
+        } else {
+            reveals.forEach((el) => el.classList.add('is-visible'));
+        }
+    </script>
 </body>
 </html>
